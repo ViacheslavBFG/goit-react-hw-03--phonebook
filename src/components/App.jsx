@@ -4,14 +4,24 @@ import ContactForm from './module/ContactForm/ContactForm';
 import ContactList from './module/ContactList/ContactList';
 import Filter from './module/Filter/Filter';
 
-
-
-
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contacts');
+    if (savedContacts) {
+      this.setState({ contacts: JSON.parse(savedContacts) });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   addContact = newContact => {
     if (this.state.contacts.some(contact => contact.name === newContact.name)) {
