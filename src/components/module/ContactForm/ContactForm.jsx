@@ -7,19 +7,6 @@ class ContactForm extends Component {
     number: '',
   };
 
-  componentDidMount() {
-    const savedContacts = localStorage.getItem('contacts');
-    if (savedContacts) {
-      this.props.onLoadContacts(JSON.parse(savedContacts));
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.contacts !== this.props.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
-    }
-  }
-
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
